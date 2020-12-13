@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {WebsocketService} from '../../services/websocket.service';
+import {MessageService} from '../../services/message.service';
+
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,16 @@ export class LoginComponent implements OnInit {
   loginUsername: string;
   loginPassword: string;
 
-  constructor(private websocketService: WebsocketService) { }
+  constructor(public messageService: MessageService) { }
 
   ngOnInit(): void {
   }
 
   login(): void{
-    this.websocketService.connect();
+    if(this.loginUsername){
+      this.messageService.sendMessage(this.loginUsername);
+      this.loginUsername = '';
+    }
   }
 
 }
