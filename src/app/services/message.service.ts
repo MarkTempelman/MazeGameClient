@@ -28,7 +28,7 @@ export class MessageService {
   }
 
   sendMessage(message){
-    this.stompClient.send('app/send/message' , {}, message);
+    this.stompClient.send('/app/send/message' , {}, message);
   }
 
 }
