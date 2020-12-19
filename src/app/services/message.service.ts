@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import {MessageType} from '../enums/message-type';
+import {DataService} from './data.service';
 declare var SockJS;
 declare var Stomp;
 
@@ -7,9 +9,10 @@ declare var Stomp;
 })
 export class MessageService {
   public stompClient;
-  public msg = [];
+  private playerId;
 
-  constructor() {
+  constructor(private data: DataService) {
+    this.data.playerIdState.subscribe(playerId => this.playerId = playerId);
     this.initializeWebSocketConnection();
   }
 
@@ -19,16 +22,26 @@ export class MessageService {
     this.stompClient = Stomp.over(ws);
     const that = this;
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/message', (message) => {
+      that.stompClient.subscribe('/message/' + that.playerId, (message) => {
         if (message.body) {
-          that.msg.push(message.body);
+          that.handleMessage(message)
         }
       });
     });
   }
 
-  sendMessage(message){
-    this.stompClient.send('/app/send/message' , {}, message);
+  sendMessage(message, address: String){
+    message['sender'] = this.playerId;
+    this.stompClient.send('/app/' + address , {}, JSON.stringify(message));
   }
 
+  handleMessage(message){
+    switch(message.messageType){
+      case MessageType.LoginResponse:
+        this.data.handleLoginResponse(message);
+        break;
+      default:
+        break;
+    }
+  }
 }

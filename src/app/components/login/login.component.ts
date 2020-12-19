@@ -18,9 +18,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void{
-    if(this.loginUsername){
-      this.messageService.sendMessage(this.loginUsername);
+    if(this.loginUsername && this.loginPassword){
+      let message = {
+        username: this.loginUsername,
+        password: this.loginPassword,
+      }
+      this.messageService.sendMessage(message, 'login');
       this.loginUsername = '';
+      this.loginPassword = '';
     }
   }
 
