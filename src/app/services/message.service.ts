@@ -24,7 +24,7 @@ export class MessageService {
     this.stompClient.connect({}, function(frame) {
       that.stompClient.subscribe('/message/' + that.playerId, (message) => {
         if (message.body) {
-          that.handleMessage(message)
+          that.handleMessage(JSON.parse(message.body))
         }
       });
     });
