@@ -9,10 +9,10 @@ declare var Stomp;
 })
 export class MessageService {
   public stompClient;
-  private playerId;
+  private playerId = 0;
 
   constructor(private data: DataService) {
-    this.data.playerIdState.subscribe(playerId => this.playerId = playerId);
+    this.playerId = data.getPlayerId();
     this.initializeWebSocketConnection();
   }
 
@@ -22,12 +22,16 @@ export class MessageService {
     this.stompClient = Stomp.over(ws);
     const that = this;
     this.stompClient.connect({}, function(frame) {
-      that.stompClient.subscribe('/message/' + that.playerId, (message) => {
-        if (message.body) {
-          that.handleMessage(JSON.parse(message.body))
-        }
-      });
+      that.subscribeToWebSocket();
     });
+  }
+
+  subscribeToWebSocket(){
+    this.stompClient.subscribe('/message/' + this.playerId, (message) => {
+      if (message.body) {
+        this.handleMessage(JSON.parse(message.body))
+      }
+    }, {id: this.playerId});
   }
 
   sendMessage(message, address: String){
@@ -39,9 +43,18 @@ export class MessageService {
     switch(message.messageType){
       case MessageType.LoginResponse:
         this.data.handleLoginResponse(message);
+        this.playerIdUpdated(this.data.getPlayerId());
         break;
       default:
         break;
     }
+  }
+
+  playerIdUpdated(playerId: number){
+    if(this.playerId != 0){
+      this.stompClient.unsubscribe(this.playerId);
+    }
+    this.playerId = playerId;
+    this.subscribeToWebSocket();
   }
 }
