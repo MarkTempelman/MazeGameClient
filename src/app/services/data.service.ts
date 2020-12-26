@@ -1,34 +1,31 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private isLoggedIn = new BehaviorSubject<boolean>(false);
-  loggedInState = this.isLoggedIn.asObservable();
-
-  constructor() {
-    if(sessionStorage.getItem('playerId') == null){
-      sessionStorage.setItem('playerId', this.getRandomId().toString())
+  constructor(private router: Router) {
+    if(localStorage.getItem('playerId') == null){
+      localStorage.setItem('playerId', this.getRandomId().toString())
     }
-    if(sessionStorage.getItem('isLoggedIn') == null){
-      sessionStorage.setItem('isLoggedIn', "false");
+    if(localStorage.getItem('isLoggedIn') == null){
+      localStorage.setItem('isLoggedIn', "false");
     }
-    this.isLoggedIn.next(false);
   }
 
   public handleLoginResponse(message){
     if(message.isSuccessful){
-      sessionStorage.setItem('playerId', message.playerId);
-      sessionStorage.setItem('isLoggedIn', message.isSuccessful);
-      this.isLoggedIn.next(true);
+      localStorage.setItem('playerId', message.playerId);
+      localStorage.setItem('isLoggedIn', message.isSuccessful);
+      this.router.navigate(['']);
     }
   }
 
   public getPlayerId(): number{
-    return JSON.parse(sessionStorage.getItem('playerId'));
+    return JSON.parse(localStorage.getItem('playerId'));
   }
 
   private getRandomId(){
