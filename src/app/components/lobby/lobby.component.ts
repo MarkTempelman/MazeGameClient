@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-lobby',
@@ -7,15 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LobbyComponent implements OnInit {
 
-  constructor() { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
-  //todo:
-//   keep navbar at top when logged in
-//    have a reference to it in all components
-//   only show login or register when not logged in
-//   when not loggedIn redirect to login page
-//    Maybe if(!loggedIn){redirect to lobby/login}
-//    Not ideal but should work
+
+  joinRandomLobby(){
+    let message = {}
+    this.messageService.sendMessage(message, 'join/random')
+  }
 }
