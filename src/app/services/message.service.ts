@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {MessageType} from '../enums/message-type';
 import {DataService} from './data.service';
+import {LobbyService} from './lobby.service';
+import {BehaviorSubject} from 'rxjs';
+import {Router} from '@angular/router';
 declare var SockJS;
 declare var Stomp;
 
@@ -11,7 +14,13 @@ export class MessageService {
   public stompClient;
   private playerId = 0;
 
-  constructor(private data: DataService) {
+  private lobbyJoinedMessage = new BehaviorSubject<any>({});
+  lobbyJoinedState = this.lobbyJoinedMessage.asObservable();
+
+  private playerJoinedMessage = new BehaviorSubject<any>({});
+  playerJoinedState = this.playerJoinedMessage.asObservable();
+
+  constructor(private data: DataService, private router: Router) {
     this.playerId = data.getPlayerId();
     this.initializeWebSocketConnection();
   }
@@ -45,6 +54,12 @@ export class MessageService {
         this.data.handleLoginResponse(message);
         this.playerIdUpdated(this.data.getPlayerId());
         break;
+      case MessageType.JoinedLobby:
+        this.lobbyJoinedMessage.next(message);
+        this.router.navigate(['lobby/current']);
+        break;
+      case MessageType.PlayerJoined:
+        this.playerJoinedMessage.next(message);
       default:
         break;
     }

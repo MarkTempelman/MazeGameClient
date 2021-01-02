@@ -7,13 +7,15 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LobbyComponent } from './components/lobby/lobby.component';
+import { CurrentComponent } from './components/lobby/current/current.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    LobbyComponent
+    LobbyComponent,
+    CurrentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
+import {Player} from '../models/player';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LobbyService {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  lobbyJoined(){
+  public joinedLobby(message){
 
   }
+
+  public playerJoined(message){
+
+  }
+
 }

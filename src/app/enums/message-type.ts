@@ -1,3 +1,6 @@
 export enum MessageType {
-  LoginResponse = "LoginResponse"
+  LoginResponse = "LoginResponse",
+  JoinedLobby = "JoinedLobby",
+  PlayerJoined = "PlayerJoined",
+
 }
