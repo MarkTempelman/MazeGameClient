@@ -11,7 +11,7 @@ import {skip} from 'rxjs/operators';
 export class CurrentComponent implements OnInit {
 
   private lobbyId: number;
-  private players: Player[];
+  public players: Player[];
 
   constructor(private messageService: MessageService) {
 

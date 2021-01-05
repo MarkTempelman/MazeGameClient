@@ -1,0 +1,4 @@
+<p>game works!</p>
+<div [style.position]="'relative'">
+  <img *ngFor="let wall of walls" src="assets/images/wall.png" width="40" height="40" [style.position]="'absolute'" [style.top.px]="wall.position.y" [style.left.px]="wall.position.x">
+</div>
