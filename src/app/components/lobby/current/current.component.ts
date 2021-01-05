@@ -37,4 +37,11 @@ export class CurrentComponent implements OnInit {
     this.players.push(<Player>message.player)
   }
 
+  public startGame(){
+    let message = {
+      lobbyId: this.lobbyId
+    }
+    this.messageService.sendMessage(message, 'start')
+  }
+
 }

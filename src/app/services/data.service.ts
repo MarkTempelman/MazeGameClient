@@ -8,24 +8,24 @@ import {Router} from '@angular/router';
 export class DataService {
 
   constructor(private router: Router) {
-    if(localStorage.getItem('playerId') == null){
-      localStorage.setItem('playerId', this.getRandomId().toString())
+    if(sessionStorage.getItem('playerId') == null){
+      sessionStorage.setItem('playerId', this.getRandomId().toString())
     }
-    if(localStorage.getItem('isLoggedIn') == null){
-      localStorage.setItem('isLoggedIn', "false");
+    if(sessionStorage.getItem('isLoggedIn') == null){
+      sessionStorage.setItem('isLoggedIn', "false");
     }
   }
 
   public handleLoginResponse(message){
     if(message.isSuccessful){
-      localStorage.setItem('playerId', message.playerId);
-      localStorage.setItem('isLoggedIn', message.isSuccessful);
+      sessionStorage.setItem('playerId', message.playerId);
+      sessionStorage.setItem('isLoggedIn', message.isSuccessful);
       this.router.navigate(['']);
     }
   }
 
   public getPlayerId(): number{
-    return JSON.parse(localStorage.getItem('playerId'));
+    return JSON.parse(sessionStorage.getItem('playerId'));
   }
 
   private getRandomId(){

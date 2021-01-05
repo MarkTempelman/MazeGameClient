@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
     //TODO: use actual authentication
-    if(JSON.parse(localStorage.getItem("isLoggedIn"))){
+    if(JSON.parse(sessionStorage.getItem("isLoggedIn"))){
       return true;
     }
 

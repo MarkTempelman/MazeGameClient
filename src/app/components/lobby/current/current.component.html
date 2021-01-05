@@ -1,4 +1,7 @@
 <div>
   <p *ngFor="let player of players">{{player.username}}</p>
 </div>
+<div>
+  <button (click)="startGame()" type="submit" class="btn btn-primary">Start Game</button>
+</div>
 <app-game></app-game>

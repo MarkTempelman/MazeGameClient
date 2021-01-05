@@ -6,4 +6,9 @@ export class Position{
     this.x = x;
     this.y = y;
   }
+
+  public translate(translateValue: number){
+    this.x *= translateValue;
+    this.y *= translateValue;
+  }
 }

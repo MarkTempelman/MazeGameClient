@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MessageType} from '../enums/message-type';
 import {DataService} from './data.service';
-import {LobbyService} from './lobby.service';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
 declare var SockJS;
@@ -19,6 +18,9 @@ export class MessageService {
 
   private playerJoinedMessage = new BehaviorSubject<any>({});
   playerJoinedState = this.playerJoinedMessage.asObservable();
+
+  private startGameMessage = new BehaviorSubject<any>({});
+  startGameState = this.startGameMessage.asObservable();
 
   constructor(private data: DataService, private router: Router) {
     this.playerId = data.getPlayerId();
@@ -60,6 +62,10 @@ export class MessageService {
         break;
       case MessageType.PlayerJoined:
         this.playerJoinedMessage.next(message);
+        break;
+      case MessageType.StartGame:
+        this.startGameMessage.next(message);
+        break;
       default:
         break;
     }
