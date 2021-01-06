@@ -22,6 +22,9 @@ export class MessageService {
   private startGameMessage = new BehaviorSubject<any>({});
   startGameState = this.startGameMessage.asObservable();
 
+  private movementUpdateMessage = new BehaviorSubject<any>({});
+  movementUpdateState = this.movementUpdateMessage.asObservable();
+
   constructor(private data: DataService, private router: Router) {
     this.playerId = data.getPlayerId();
     this.initializeWebSocketConnection();
@@ -66,6 +69,8 @@ export class MessageService {
       case MessageType.StartGame:
         this.startGameMessage.next(message);
         break;
+      case MessageType.MovementUpdate:
+        this.movementUpdateMessage.next(message);
       default:
         break;
     }

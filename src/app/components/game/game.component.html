@@ -1,5 +1,6 @@
 <p>game works!</p>
 <div [style.position]="'relative'">
   <img *ngFor="let wall of walls" src="assets/images/wall.png" width="{{gridSize}}" height="{{gridSize}}" [style.position]="'absolute'" [style.top.px]="wall.position.y" [style.left.px]="wall.position.x">
+  <img *ngFor="let player of players" src="assets/images/blue-player.png" width="{{gridSize}}" height="{{gridSize}}" [style.position]="'absolute'" [style.top.px]="player.position.y" [style.left.px]="player.position.x">
 </div>
 
