@@ -25,6 +25,9 @@ export class MessageService {
   private movementUpdateMessage = new BehaviorSubject<any>({});
   movementUpdateState = this.movementUpdateMessage.asObservable();
 
+  private gameOverMessage = new BehaviorSubject<any>({});
+  gameOverState = this.gameOverMessage.asObservable();
+
   constructor(private data: DataService, private router: Router) {
     this.playerId = data.getPlayerId();
     this.initializeWebSocketConnection();
@@ -71,6 +74,10 @@ export class MessageService {
         break;
       case MessageType.MovementUpdate:
         this.movementUpdateMessage.next(message);
+        break;
+      case MessageType.GameOver:
+        this.gameOverMessage.next(message);
+        break;
       default:
         break;
     }

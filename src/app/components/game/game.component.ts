@@ -16,13 +16,24 @@ export class GameComponent implements OnInit {
   public gridSize: number = 40;
   tiles: Tile[] = [];
   players: Player[];
+  public isFinished: boolean;
 
   constructor(private messageService: MessageService) {
   }
 
   ngOnInit(): void {
-    this.messageService.startGameState.pipe(skip(1)).subscribe(m => this.startGame(m))
-    this.messageService.movementUpdateState.pipe(skip(1)).subscribe(m => this.updatePlayerPosition(m))
+    this.messageService.startGameState.pipe(skip(1)).subscribe(m => this.startGame(m));
+    this.messageService.movementUpdateState.pipe(skip(1)).subscribe(m => this.updatePlayerPosition(m));
+    this.messageService.gameOverState.pipe(skip(1)).subscribe(m => this.gameOver(m))
+  }
+
+  private gameOver(message){
+    this.tiles = [];
+    this.addTilesToArray(message.tiles);
+    this.players = message.players;
+    this.translatePlayers();
+    this.translateWalls();
+    this.isFinished = true;
   }
 
   private startGame(message){

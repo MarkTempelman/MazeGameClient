@@ -1,4 +1,8 @@
 <p>game works!</p>
+<div *ngIf="isFinished" class="alert alert-dismissible alert-success">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Game Over!</strong>
+</div>
 <div [style.position]="'relative'">
   <img *ngFor="let tile of tiles" src="assets/images/{{tile.tileType.toLowerCase()}}.png" width="{{gridSize}}" height="{{gridSize}}" [style.position]="'absolute'" [style.top.px]="tile.position.y" [style.left.px]="tile.position.x">
   <img *ngFor="let player of players" src="assets/images/blue-player.png" width="{{gridSize}}" height="{{gridSize}}" [style.position]="'absolute'" [style.top.px]="player.position.y" [style.left.px]="player.position.x">

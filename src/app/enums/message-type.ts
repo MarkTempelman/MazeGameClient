@@ -4,4 +4,5 @@ export enum MessageType {
   PlayerJoined = "PlayerJoined",
   StartGame = "StartGame",
   MovementUpdate = "MovementUpdate",
+  GameOver = "GameOver",
 }
