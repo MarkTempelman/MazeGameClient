@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {Wall} from '../../models/wall';
+import {Tile} from '../../models/tile';
 import {Position} from '../../models/position';
 import {MessageService} from '../../services/message.service';
 import {skip} from 'rxjs/operators';
@@ -14,7 +14,7 @@ import {Player} from '../../models/player';
 export class GameComponent implements OnInit {
 
   public gridSize: number = 40;
-  walls: Wall[] = [];
+  tiles: Tile[] = [];
   players: Player[];
 
   constructor(private messageService: MessageService) {
@@ -26,17 +26,17 @@ export class GameComponent implements OnInit {
   }
 
   private startGame(message){
-    this.addWallsToArray(message.walls);
+    this.addTilesToArray(message.tiles);
     this.players = message.players;
     this.translatePlayers();
     this.translateWalls();
   }
 
-  private addWallsToArray(walls){
-    for(let y = 0; y < walls.length; y++){
-      for(let x = 0; x < walls.length; x++){
-        if(walls[y][x] != null){
-          this.walls.push(walls[y][x]);
+  private addTilesToArray(tiles){
+    for(let y = 0; y < tiles.length; y++){
+      for(let x = 0; x < tiles.length; x++){
+        if(tiles[y][x] != null){
+          this.tiles.push(tiles[y][x]);
         }
       }
     }
@@ -44,7 +44,7 @@ export class GameComponent implements OnInit {
 
   private translateWalls(){
     let that = this;
-    this.walls.forEach(function (wall){
+    this.tiles.forEach(function (wall){
       wall.position.x *= that.gridSize
       wall.position.y *= that.gridSize
     });
