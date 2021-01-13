@@ -1,5 +1,5 @@
 <div>
-  <p *ngFor="let player of players">{{player.username}}</p>
+  <p *ngFor="let player of players">{{player.username}} distance traveled:{{player.distanceTraveled}}</p>
 </div>
 <div>
   <button (click)="startGame()" type="submit" class="btn btn-primary">Start Game</button>

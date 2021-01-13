@@ -16,6 +16,8 @@ export class GameComponent implements OnInit {
   public gridSize: number = 40;
   tiles: Tile[] = [];
   players: Player[];
+  winner: Player;
+  public shortestRouteLength: number;
   public isFinished: boolean;
 
   constructor(private messageService: MessageService) {
@@ -34,6 +36,8 @@ export class GameComponent implements OnInit {
     this.translatePlayers();
     this.translateWalls();
     this.isFinished = true;
+    this.shortestRouteLength = message.shortestRouteLength;
+    this.winner = message.player;
   }
 
   private startGame(message){

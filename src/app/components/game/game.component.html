@@ -1,7 +1,6 @@
-<p>game works!</p>
 <div *ngIf="isFinished" class="alert alert-dismissible alert-success">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Game Over!</strong>
+  <strong>Game Over!</strong> The shortest possible route to the end was {{shortestRouteLength}} tiles long. {{winner.username}} won this game with a distance traveled of {{winner.distanceTraveled}} tiles;
 </div>
 <div [style.position]="'relative'">
   <img *ngFor="let tile of tiles" src="assets/images/{{tile.tileType.toLowerCase()}}.png" width="{{gridSize}}" height="{{gridSize}}" [style.position]="'absolute'" [style.top.px]="tile.position.y" [style.left.px]="tile.position.x">

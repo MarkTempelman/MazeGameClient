@@ -21,6 +21,8 @@ export class CurrentComponent implements OnInit {
     this.players = [];
     this.messageService.lobbyJoinedState.subscribe(m => this.handleLobbyJoinedMessage(m));
     this.messageService.playerJoinedState.pipe(skip(1)).subscribe(m => this.handlePlayerJoinedMessage(m));
+    this.messageService.gameOverState.pipe(skip(1)).subscribe(m => this.updatePlayers(m))
+    this.messageService.movementUpdateState.pipe(skip(1)).subscribe(m => this.updatePlayers(m));
   }
 
   private handleLobbyJoinedMessage(message){
@@ -42,6 +44,10 @@ export class CurrentComponent implements OnInit {
       lobbyId: this.lobbyId
     }
     this.messageService.sendMessage(message, 'start')
+  }
+
+  private updatePlayers(message){
+    this.players = message.players;
   }
 
 }
