@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LobbyComponent } from './components/lobby/lobby.component';
 import { CurrentComponent } from './components/lobby/current/current.component';
 import { GameComponent } from './components/game/game.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GameComponent } from './components/game/game.component';
     HomeComponent,
     LobbyComponent,
     CurrentComponent,
-    GameComponent
+    GameComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
